@@ -1,0 +1,4 @@
+{
+  "codePaths": ["src/"],
+  "testPaths": ["test/"]
+}

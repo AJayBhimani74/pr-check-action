@@ -1,0 +1,18 @@
+name: PR check
+description: Checks a pull request for size, a filled-in description and tests, and leaves one comment.
+author: Ajay Bhimani
+
+inputs:
+  github-token:
+    description: Token used to read the pull request and write the comment
+    default: ${{ github.token }}
+  fail-on:
+    description: "fail (default) fails the job only for failed rules, warn also fails on warnings, none never fails"
+    default: fail
+  config-path:
+    description: Optional JSON file that overrides the defaults
+    default: .github/pr-check.json
+
+runs:
+  using: node20
+  main: src/index.js

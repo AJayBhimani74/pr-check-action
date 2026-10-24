@@ -32,18 +32,18 @@ export function sizeRule(files, config) {
   return { id: 'size', status: PASS, message: `${lines} changed lines.` };
 }
 
-// Removes HTML comments (the hints in a PR template) and markdown headings, and tick boxes.
-export function plainText(markdown = '') {
-  return markdown
+// Removes HTML comments (the hints in a PR template), markdown headings and checklist lines.
+export function plainText(markdown) {
+  return (markdown ?? '')
     .replace(/<!--[\s\S]*?-->/g, '')
     .replace(/^#{1,6}\s.*$/gm, '')
-    .replace(/^\s*[-*]\s*\[[ xX]\]/gm, '')
+    .replace(/^\s*[-*]\s*\[[ xX]\].*$/gm, '')
     .replace(/\s+/g, ' ')
     .trim();
 }
 
-export function section(markdown = '', title) {
-  const lines = markdown.split(/\r?\n/);
+export function section(markdown, title) {
+  const lines = (markdown ?? '').split(/\r?\n/);
   const start = lines.findIndex((line) => new RegExp(`^#{1,6}\\s*${title}\\s*$`, 'i').test(line.trim()));
 
   if (start === -1) {
